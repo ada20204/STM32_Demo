@@ -30,7 +30,7 @@ extern "C" {
 
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
-#include "usbd_cdc_if.h"
+#include "tusb.h"
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart1;

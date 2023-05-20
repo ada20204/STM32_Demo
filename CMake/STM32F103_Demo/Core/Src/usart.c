@@ -24,7 +24,10 @@
 int _write(int fd, char *ch, int len)
 {
     HAL_UART_Transmit(&huart1, (uint8_t*)ch, len, 0xffff);
-    CDC_Transmit_FS((uint8_t *)ch, len);
+    tud_cdc_write((uint8_t*)ch, len);
+    tud_cdc_write_flush();
+    tud_vendor_write((uint8_t*)ch, len);
+    tud_vendor_flush();
     return len;
 }
 /* USER CODE END 0 */

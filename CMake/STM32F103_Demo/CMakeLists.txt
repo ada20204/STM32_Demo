@@ -14,10 +14,11 @@ set(SIZE arm-none-eabi-size)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
 # project settings
-project(STM32F103_Demo C CXX ASM)
+project(STM32F103_DEMO C CXX ASM)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
 
+file(GLOB_RECURSE TINYUSB_SOURCES "3rd_Src/tinyusb/src/*.c")
 #Uncomment for hardware floating point
 #add_compile_definitions(ARM_MATH_CM4;ARM_MATH_MATRIX_CHECK;ARM_MATH_ROUNDING)
 #add_compile_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
@@ -49,11 +50,18 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(Core/Inc USB_DEVICE/App USB_DEVICE/Target Drivers/STM32F1xx_HAL_Driver/Inc Drivers/STM32F1xx_HAL_Driver/Inc/Legacy Middlewares/ST/STM32_USB_Device_Library/Core/Inc Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc Drivers/CMSIS/Device/ST/STM32F1xx/Include Drivers/CMSIS/Include)
+include_directories(
+    Core/Inc 
+    Drivers/STM32F1xx_HAL_Driver/Inc 
+    Drivers/STM32F1xx_HAL_Driver/Inc/Legacy 
+    Drivers/CMSIS/Device/ST/STM32F1xx/Include 
+    Drivers/CMSIS/Include
+    3rd_Src/tinyusb/src
+    3rd_Src/MPU6050/Src)
 
-add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB)
+add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -DCMSISCORE="Drivers/CMSIS" -DCFG_TUSB_MCU=OPT_MCU_STM32F1 -DCFG_TUSB_OS=OPT_OS_NONE)
 
-file(GLOB_RECURSE SOURCES "Core/*.*" "Middlewares/*.*" "Drivers/*.*" "USB_DEVICE/*.*")
+file(GLOB_RECURSE SOURCES "Core/*.*" "Drivers/*.*" "3rd_Src/MPU6050/*.*")
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F103C8TX_FLASH.ld)
 
@@ -61,7 +69,7 @@ add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_BINARY_DIR
 add_link_options(-mcpu=cortex-m3 -mthumb -mthumb-interwork)
 add_link_options(-T ${LINKER_SCRIPT})
 
-add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
+add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT} ${TINYUSB_SOURCES})
 
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)
