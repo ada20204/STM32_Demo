@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.m": "matlab",
+        "usart.h": "c",
+        "usb_device.h": "c"
+    }
+}

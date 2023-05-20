@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "Core/Inc",
+                "Drivers/STM32F1xx_HAL_Driver/Inc",
+                "Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+                "Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+                "Drivers/CMSIS/Include",   
+                "USB_DEVICE/Target",
+                "USB_DEVICE/App",
+                "Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc",
+                "Middlewares/ST/STM32_USB_Device_Library/Core/Inc"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "USE_HAL_DRIVER",
+                "STM32F103xx"
+            ],
+            "compilerPath": "D:\\DevKit\\gcc-arm-none-eabi\\10 2021.10\\bin\\arm-none-eabi-gcc.exe",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "gcc-arm",
+            "configurationProvider": "ms-vscode.makefile-tools"
+        }
+    ],
+    "version": 4
+}
