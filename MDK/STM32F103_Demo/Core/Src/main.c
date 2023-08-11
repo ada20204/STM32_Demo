@@ -101,10 +101,11 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		printf("Hello World!\r\n");
-		usb_printf("Hello World!\r\n");
-    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-    HAL_Delay(1000);
+		// printf("Hello World!\r\n");
+		// usb_printf("Hello World!\r\n");
+//    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+		HAL_UART_Receive(&huart1,NULL,1,0xffff);
+//    HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
